@@ -1,10 +1,29 @@
-import React from 'react';
-
+import React,{useRef} from 'react';
+import {useDrag, useDrop} from 'react-dnd';
 import { Container ,Label} from './styles';
-import euImg from '../../assets/eu.jpg'
+
+
 function Card({data}) {
+
+  const ref = useRef();
+
+ const [{isDragging}, dragRef] = useDrag({
+   type:"CARD",
+   collect:monitor => ({
+     isDragging:monitor.isDragging(),
+   }),
+ })
+ const [, dropRef] = useDrop({
+  accept:"CARD",
+  hover(){
+    console.log(data.id);
+  }
+ })
+
+ dragRef(dropRef(ref));
+
   return (
-  <Container>
+  <Container ref={ref} isDragging={isDragging}>
   <header>
     {data.labels.map(label=> <Label key={label} color={label}/>)}
    
