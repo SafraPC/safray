@@ -36,13 +36,14 @@ function Card({data,index,listIndex}) {
     const draggedOffSet = monitor.getClientOffset();
     const draggedTop = draggedOffSet.y - targetSize.top;
 
-    if(draggedIndex - targetIndex && draggedTop < targetCenter){
+    if(draggedIndex < targetIndex && draggedTop < targetCenter){
       return;
     }
     if(draggedIndex > targetIndex && draggedTop > targetCenter){
       return
     }
     move(draggedListIndex,draggedIndex,targetIndex);
+    item.index = targetIndex;
   }
  })
 
